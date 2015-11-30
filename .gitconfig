@@ -3,6 +3,6 @@
 	name = gygias
 [core]
 	pager = cat
-	editor = emacs
+	editor = emacs -nw
 [diff]
 	external = /home/pi/bin/git-diff-wrapper.sh

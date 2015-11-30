@@ -1,9 +1,7 @@
 #! /bin/bash
-# http://badassdev.com/articles/2012/11/26/pstack-for-debian.html
+# modified from http://badassdev.com/articles/2012/11/26/pstack-for-debian.html
 if [[ $1 -eq 0 ]];then
-   echo "Usage:"
-   echo "   $0 "
-   exit
+    byname=1
 fi
  
 TMPFILE="${TMPDIR:=/tmp}/pstack$$"
@@ -18,5 +16,9 @@ thread apply all where
 detach
 quit
 EOF
- 
-gdb -q -x $TMPFILE -p $1
+
+if [[ $byname ]]; then
+    gdb -q -x $TMPFILE -p `pgrep $1`
+else
+    gdb -q -x $TMPFILE -p $1
+fi
