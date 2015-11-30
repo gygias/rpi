@@ -1,0 +1,22 @@
+#! /bin/bash
+# http://badassdev.com/articles/2012/11/26/pstack-for-debian.html
+if [[ $1 -eq 0 ]];then
+   echo "Usage:"
+   echo "   $0 "
+   exit
+fi
+ 
+TMPFILE="${TMPDIR:=/tmp}/pstack$$"
+ 
+# Remove TMPFILE on termination
+trap 'rm -f "$TMPFILE" >/dev/null 2>&1' 0
+trap "exit 2" 1 2 3 13 15
+ 
+cat > "$TMPFILE" << EOF
+set height 0
+thread apply all where
+detach
+quit
+EOF
+ 
+gdb -q -x $TMPFILE -p $1
