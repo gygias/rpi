@@ -4,5 +4,7 @@
 [core]
 	pager = cat
 	editor = emacs -nw
+	autocrlf = input
+	safecrlf = false
 [diff]
 	external = /home/pi/bin/git-diff-wrapper.sh
